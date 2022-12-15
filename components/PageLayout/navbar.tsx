@@ -43,6 +43,52 @@ const NavBar: React.FC = () => {
     );
   };
 
+  const subsButton = () => {
+    return (
+      <RoundedButton
+        component="a"
+        href="/subscription"
+        color="primary"
+        disableElevation
+        size="large"
+        sx={{
+          color: "black",
+          fontSize: "12px",
+        }}
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          router.push("/subscription");
+        }}
+      >
+        Subscriptions
+      </RoundedButton>
+    );
+  };
+
+  const projectButton = () => {
+    return (
+      <RoundedButton
+        component="a"
+        href="/projects"
+        color="primary"
+        disableElevation
+        size="large"
+        sx={{
+          color: "black",
+          fontSize: "12px",
+        }}
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          router.push("/projects");
+        }}
+      >
+        Projects
+      </RoundedButton>
+    );
+  };
+
   return (
     <AppBar
       position="fixed"
@@ -68,7 +114,7 @@ const NavBar: React.FC = () => {
               size="large"
               sx={{
                 color: "black",
-                fontSize: "15px",
+                fontSize: "12px",
                 "&:hover": {
                   backgroundColor: "white",
                 },
@@ -81,24 +127,10 @@ const NavBar: React.FC = () => {
             >
               RefnWrite
             </RoundedButton>
-            <RoundedButton
-              component="a"
-              href="/subscription"
-              color="primary"
-              disableElevation
-              size="large"
-              sx={{
-                color: "black",
-                fontSize: "15px",
-              }}
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                router.push("/subscription");
-              }}
-            >
-              Subscriptions
-            </RoundedButton>
+            <Stack direction="row">
+              {projectButton()}
+              {subsButton()}
+            </Stack>
             <Stack direction="row">
               {signUpButton()}
               {loginButton()}
