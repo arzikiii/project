@@ -9,9 +9,12 @@ interface signUpPayload {
   password_confirmation: string;
 }
 
+export let userToken: string;
+
 export const signUp = async (data: signUpPayload): Promise<User> => {
   try {
     const res = await loginApi.post("/users/signup", data);
+    userToken = res.data;
     return res.data;
   } catch (error: any | AxiosError) {
     if (axios.isAxiosError(error)) {
@@ -29,6 +32,7 @@ interface loginPayload {
 export const login = async (data: loginPayload): Promise<User> => {
   try {
     const res = await loginApi.post("/users/login", data);
+    userToken = res.data;
     return res.data;
   } catch (error: any | AxiosError) {
     if (axios.isAxiosError(error)) {
