@@ -10,16 +10,16 @@ export const PageHeader: React.FC<{ title: string; desc: string }> = ({ title, d
         sx={{
           columnGap: 2,
           p: "24px 48px 24px 48px",
-          mt: 3,
+          mt: 2,
           bgcolor: "white",
           borderBottom: "1px solid",
           borderBottomColor: "#8988881f",
         }}
       >
-        <Typography variant="h3" fontSize={3}>
+        <Typography variant="h4" fontSize={3} color="#2623df">
           {title}
         </Typography>
-        <Typography variant="h5">{desc}</Typography>
+        <Typography variant="subtitle1">{desc}</Typography>
       </Stack>
     </>
   );

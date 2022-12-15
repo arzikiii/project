@@ -6,7 +6,7 @@ import { SubsListView } from "./subsListView";
 export const SubscriptionPage: React.FC = () => {
   return (
     <Layout>
-      <PageHeader title="Subscription" desc="Jenis-jenis langganan yang bisa anda beli untuk mendapatkan fitur-fitur eksklusif." />
+      <PageHeader title="Subscription" desc="Jenis-jenis langganan yang bisa anda beli untuk mendapatkan fitur premium." />
       <SubsListView />
     </Layout>
   );

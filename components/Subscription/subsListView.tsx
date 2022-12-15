@@ -34,10 +34,10 @@ export const SubsListView: React.FC = () => {
 const GroupView: React.FC<{ name: string; price: number }> = ({ name, price }) => {
   return (
     <Stack mb={3} gap={2}>
-      <Typography variant="h4" color="#000" fontWeight={500}>
+      <Typography variant="h6" fontWeight={500} color="#2623df">
         {capitalizeFirstLetter(name)} Plan
       </Typography>
-      <Typography variant="subtitle1" color="#000">
+      <Typography variant="caption" color="#000" fontWeight={100}>
         This is supposedly a description but i do not know what to write so i will just type some random things
       </Typography>
 
@@ -62,13 +62,13 @@ const GroupView: React.FC<{ name: string; price: number }> = ({ name, price }) =
             width: "80px",
           }}
         />
-        <Typography variant="subtitle1" sx={{ p: "6px 12px" }}>
+        {/* <Typography variant="body2" sx={{ p: "6px 12px" }}>
           Login to Buy
-        </Typography>
-        {/* <RoundedButton onClick={() => console.log("click")} sx={{ fontSize: "10px" }}>
+        </Typography> */}
+        <RoundedButton onClick={() => console.log("click")} sx={{ fontSize: "10px" }}>
           {" "}
           Buy Plan{" "}
-        </RoundedButton> */}
+        </RoundedButton>
       </Stack>
     </Stack>
   );

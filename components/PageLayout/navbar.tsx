@@ -89,6 +89,29 @@ const NavBar: React.FC = () => {
     );
   };
 
+  const dashboardButton = () => {
+    return (
+      <RoundedButton
+        component="a"
+        href="/dashboard"
+        color="primary"
+        disableElevation
+        size="large"
+        sx={{
+          color: "black",
+          fontSize: "12px",
+        }}
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          router.push("/dashboard");
+        }}
+      >
+        Dashboard
+      </RoundedButton>
+    );
+  };
+
   return (
     <AppBar
       position="fixed"
@@ -113,7 +136,7 @@ const NavBar: React.FC = () => {
               disableElevation
               size="large"
               sx={{
-                color: "black",
+                color: "#2623df",
                 fontSize: "12px",
                 "&:hover": {
                   backgroundColor: "white",
@@ -128,6 +151,7 @@ const NavBar: React.FC = () => {
               RefnWrite
             </RoundedButton>
             <Stack direction="row">
+              {dashboardButton()}
               {projectButton()}
               {subsButton()}
             </Stack>
