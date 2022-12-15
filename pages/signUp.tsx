@@ -1,15 +1,17 @@
 import React from "react";
 import * as Yup from "yup";
 import { Formik, Form } from "formik";
-import { Alert, Box, Button, Snackbar, Stack, TextField, Typography } from "@mui/material";
+import { Alert, Box, Snackbar, Stack, TextField, Typography } from "@mui/material";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { RoundedButton } from "../components/roundedButton";
-import { login } from "../repositories/users";
+import { signUp } from "../repositories/users";
 
 const validationSchema = Yup.object({
-  uid: Yup.string().required("Email atau username harus diisi"),
+  email: Yup.string().email("Masukkan email yang valid").required("Email harus diisi"),
+  username: Yup.string().required("username harus diisi"),
   password: Yup.string().required("Password harus diisi"),
+  password_confirmation: Yup.string().required("Password harus diisi"),
 });
 
 const Login: NextPage = () => {
@@ -57,17 +59,19 @@ const Login: NextPage = () => {
       </Snackbar>
       <Formik
         initialValues={{
-          uid: "",
+          username: "",
+          email: "",
           password: "",
+          password_confirmation: "",
         }}
         validationSchema={validationSchema}
         onSubmit={async (data, { setSubmitting }) => {
           setSubmitting(true);
           try {
-            await login({ ...data, uid: data.uid.toLowerCase() });
+            await signUp({ ...data, email: data.email.toLowerCase() });
             setSbOpen(true);
           } catch (error: any) {
-            setAlertMessage("Login gagal");
+            setAlertMessage("Sign up gagal");
             setSbAlertOpen(true);
           } finally {
             setSubmitting(false);
@@ -101,15 +105,29 @@ const Login: NextPage = () => {
                 <TextField
                   margin="normal"
                   fullWidth
-                  label="Email"
-                  id="uid"
-                  name="uid"
+                  label="Username"
+                  id="username"
+                  name="username"
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  value={values.uid}
-                  error={touched.uid && Boolean(errors.uid)}
-                  helperText={touched.uid && errors.uid}
-                  autoComplete="uid"
+                  value={values.username}
+                  error={touched.username && Boolean(errors.username)}
+                  helperText={touched.username && errors.username}
+                  autoComplete="username"
+                  autoFocus
+                />
+                <TextField
+                  margin="normal"
+                  fullWidth
+                  label="Email"
+                  id="email"
+                  name="email"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.email}
+                  error={touched.email && Boolean(errors.email)}
+                  helperText={touched.email && errors.email}
+                  autoComplete="email"
                   autoFocus
                 />
                 <TextField
@@ -126,12 +144,26 @@ const Login: NextPage = () => {
                   helperText={touched.password && errors.password}
                   autoComplete="password"
                 />
+                <TextField
+                  margin="normal"
+                  fullWidth
+                  label="Password_confirmation"
+                  name="password_confirmation"
+                  type="password"
+                  id="password_confirmation"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.password_confirmation}
+                  error={touched.password_confirmation && Boolean(errors.password_confirmation)}
+                  helperText={touched.password_confirmation && errors.password_confirmation}
+                  autoComplete="password_confirmation"
+                />
                 <Stack direction="row" width="100%" justifyContent="space-between" alignItems="center" spacing={1} sx={{ mt: 2 }}>
                   <RoundedButton href="/" disableElevation startIcon={<i className="bx bx-left-arrow-alt" />} variant="text" onClick={() => router.push("/")}>
                     Kembali
                   </RoundedButton>
                   <RoundedButton disableElevation type="submit" variant="contained" loading={isSubmitting}>
-                    Masuk
+                    Daftar
                   </RoundedButton>
                 </Stack>
               </Box>
