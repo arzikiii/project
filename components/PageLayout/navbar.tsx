@@ -2,9 +2,14 @@ import { Accordion, AccordionDetails, AccordionSummary, AppBar, Box, Container, 
 import { useRouter } from "next/router";
 import React from "react";
 import { RoundedButton } from "../roundedButton";
+import { getToken } from "../../repositories/hooks/useToken";
+import { AvatarButton } from "../avatarButton";
+import { useUser } from "../../repositories/hooks/useUser";
 
 const NavBar: React.FC = () => {
   const router = useRouter();
+  const userToken = getToken();
+  const { user } = useUser();
 
   const loginButton = () => {
     return (
@@ -81,7 +86,7 @@ const NavBar: React.FC = () => {
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
-          router.push("/projects");
+          router.push("/project");
         }}
       >
         Projects
@@ -150,15 +155,25 @@ const NavBar: React.FC = () => {
             >
               RefnWrite
             </RoundedButton>
-            <Stack direction="row">
-              {dashboardButton()}
-              {projectButton()}
-              {subsButton()}
-            </Stack>
-            <Stack direction="row">
-              {signUpButton()}
-              {loginButton()}
-            </Stack>
+            {user !== null ? (
+              <Stack direction="row">
+                {dashboardButton()}
+                {projectButton()}
+                {subsButton()}
+              </Stack>
+            ) : (
+              <Stack direction="row">{subsButton()}</Stack>
+            )}
+            {user !== null ? (
+              <Stack direction="row">
+                <AvatarButton variant="avatar" />
+              </Stack>
+            ) : (
+              <Stack direction="row">
+                {signUpButton()}
+                {loginButton()}
+              </Stack>
+            )}
           </Stack>
         </Container>
       </Toolbar>

@@ -1,5 +1,6 @@
 import axios from "axios";
 import { BASE_URL } from "./constant";
+import { getToken } from "../repositories/hooks/useToken";
 
 export const loginApi = axios.create({
   baseURL: `${BASE_URL}/api`,
@@ -19,6 +20,7 @@ export const ecomApi = axios.create({
   baseURL: `${BASE_URL}/api`,
   headers: {
     "Content-Type": "application/json",
+    Authorization: getToken(),
     Accept: "application/json",
   },
 });

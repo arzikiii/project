@@ -1,7 +1,7 @@
 import { Stack, Typography } from "@mui/material";
 import React from "react";
 
-export const PageHeader: React.FC<{ title: string; desc: string }> = ({ title, desc }) => {
+export const PageHeader: React.FC<{ title: string; desc?: string }> = ({ title, desc }) => {
   return (
     <>
       <Stack

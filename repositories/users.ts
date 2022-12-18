@@ -1,5 +1,5 @@
 import axios, { AxiosError } from "axios";
-import { loginApi } from "../utils/apiClient";
+import { loginApi, ecomApi } from "../utils/apiClient";
 import { User } from "../types/models";
 
 interface signUpPayload {
@@ -32,6 +32,29 @@ export const login = async (data: loginPayload): Promise<User> => {
     const res = await loginApi.post("/users/login", data);
     localStorage.setItem("user", `${res.data.type} ${res.data.token}`);
     return res.data;
+  } catch (error: any | AxiosError) {
+    if (axios.isAxiosError(error)) {
+      throw error.response;
+    }
+    throw error;
+  }
+};
+
+export const fetchUser = async (): Promise<User> => {
+  try {
+    const res = await ecomApi.get<User>(`/users/profile`);
+    return res.data;
+  } catch (error: any | AxiosError) {
+    if (axios.isAxiosError(error)) {
+      throw error.response;
+    }
+    throw error;
+  }
+};
+
+export const logOut = async () => {
+  try {
+    await ecomApi.get("/users/logout");
   } catch (error: any | AxiosError) {
     if (axios.isAxiosError(error)) {
       throw error.response;

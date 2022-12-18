@@ -70,6 +70,7 @@ const Login: NextPage = () => {
           try {
             await signUp({ ...data, email: data.email.toLowerCase() });
             setSbOpen(true);
+            router.push("/dashboard");
           } catch (error: any) {
             setAlertMessage("Sign up gagal");
             setSbAlertOpen(true);
@@ -99,7 +100,7 @@ const Login: NextPage = () => {
               }}
             >
               <Typography component="h1" variant="h5" color="#000000">
-                Login
+                Daftar Akun
               </Typography>
               <Box sx={{ mt: 1 }}>
                 <TextField

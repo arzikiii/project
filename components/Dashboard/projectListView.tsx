@@ -1,27 +1,17 @@
-import { Chip, CircularProgress, Divider, Stack, Typography } from "@mui/material";
+import { CircularProgress, Stack, Typography } from "@mui/material";
 import React from "react";
 import { RoundedButton } from "../roundedButton";
-import { capitalizeFirstLetter } from "../../utils/helper";
-import { Router, useRouter } from "next/router";
-
-const sublist = [
-  { subName: "free", price: 0 },
-  { subName: "personal", price: 30000 },
-  { subName: "pro", price: 50000 },
-];
-
-// const projectlist = [
-//   { id: "1", title: "Project 1", project_type: "Project Type A" },
-//   { id: "2", title: "Project 2", project_type: "Project Type B" },
-//   { id: "3", title: "Project 3", project_type: "Project Type C" },
-// ];
-const projectlist: any = [];
+import { useRouter } from "next/router";
+import { useProject } from "../../repositories/hooks/useProject";
+import { Type } from "../../types/models";
+import { useProjectType } from "../../repositories/hooks/useProjectType";
 
 export const ProjectListView: React.FC = () => {
-  const loading = false;
   const router = useRouter();
+  const { projects, loading } = useProject();
+  const { loading: typeLoading } = useProjectType();
 
-  if (projectlist === null || undefined || []) {
+  if (projects?.length === 0 || projects === undefined || null) {
     return (
       <Stack gap={2}>
         <Stack
@@ -51,15 +41,15 @@ export const ProjectListView: React.FC = () => {
 
   return (
     <Stack gap={2}>
-      {loading ? (
+      {projects && projects.length !== 0 && loading && typeLoading ? (
         <Stack width="100%" height={150} justifyContent="center" alignItems="center">
           <CircularProgress />
         </Stack>
       ) : (
-        projectlist.map(({ title, project_type, id }, index) => {
+        projects?.map((item, index) => {
           return (
             <Stack direction="column" key={index} sx={{ p: "0px 48px 0px 48px" }}>
-              <GroupView title={title} projectType={project_type} id={id} />
+              <GroupView title={item.name} projectTypeId={item.projectTypeId} id={item.id} />
             </Stack>
           );
         })
@@ -68,13 +58,30 @@ export const ProjectListView: React.FC = () => {
         <RoundedButton onClick={() => router.push("/project/create")} sx={{ fontSize: "10px" }}>
           Create new project
         </RoundedButton>
+        <RoundedButton
+          onClick={() =>
+            projects?.map((item) => {
+              console.log(item);
+            })
+          }
+          sx={{ fontSize: "10px" }}
+        >
+          check
+        </RoundedButton>
       </Stack>
     </Stack>
   );
 };
 
-const GroupView: React.FC<{ title: string; projectType: string; id: string }> = ({ title, projectType, id }) => {
+const GroupView: React.FC<{ title: string; projectTypeId: number; id: number }> = ({ title, projectTypeId, id }) => {
   const router = useRouter();
+  const { projectType, loading } = useProjectType();
+  // const type = projectType.filter((item: Type) => item.id === projectTypeId)[0].name;
+
+  if (loading) {
+    return <CircularProgress />;
+  }
+
   return (
     <Stack gap={2}>
       <Stack
@@ -93,9 +100,9 @@ const GroupView: React.FC<{ title: string; projectType: string; id: string }> = 
           <Typography variant="h6" fontWeight={500} sx={{ mb: "8px" }}>
             {title}
           </Typography>
-          <Typography variant="body2" color="text.disabled" sx={{ pt: "2px" }}>
-            {projectType}
-          </Typography>
+          {/* <Typography variant="body2" color="text.disabled" sx={{ pt: "2px" }}>
+            {type}
+          </Typography> */}
         </Stack>
         <Typography variant="caption" color="#000" fontWeight={100}>
           This is supposedly a description but i do not know what to write so i will just type some random things

@@ -66,6 +66,7 @@ const Login: NextPage = () => {
           try {
             await login({ ...data, uid: data.uid.toLowerCase() });
             setSbOpen(true);
+            router.push("/dashboard");
           } catch (error: any) {
             setAlertMessage("Login gagal");
             setSbAlertOpen(true);

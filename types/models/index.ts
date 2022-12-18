@@ -1,9 +1,29 @@
 export interface User {
-  id: string;
+  id: number;
   username: string;
   email: string;
-  password?: string;
-  remember_me_token: string;
-  created_at: Date;
-  updated_at: Date;
+  activeSubscription: UserSubscription;
+  createdAt: Date;
+  updatedAt: Date;
+  rememberMeToken: string;
+}
+
+export interface UserSubscription {
+  plan: string;
+  endDate: Date;
+}
+
+export interface Projects {
+  id: number;
+  name: string;
+  projectTypeId: number;
+}
+
+export interface ProjectType {
+  types: Type[];
+}
+
+export interface Type {
+  id: number;
+  name: string;
 }
