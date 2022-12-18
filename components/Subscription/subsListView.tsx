@@ -42,7 +42,7 @@ const GroupView: React.FC<{ name: string; price: number }> = ({ name, price }) =
         {capitalizeFirstLetter(name)} Plan
       </Typography>
       <Typography variant="caption" color="#000" fontWeight={100}>
-        This is supposedly a description but i do not know what to write so i will just type some random things
+        deskripsi subscription plan
       </Typography>
 
       <Stack

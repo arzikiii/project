@@ -38,7 +38,7 @@ export const fetchProjectById = async (id: string): Promise<Projects> => {
   }
 };
 
-export const deleteProject = async (id: string) => {
+export const deleteProject = async (id: number) => {
   try {
     const res = await ecomApi.delete(`/projects/${id}`);
     return res.data;

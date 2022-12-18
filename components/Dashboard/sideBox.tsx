@@ -17,14 +17,21 @@ export const SideBox: React.FC = () => {
       <Typography variant="subtitle1" fontWeight={600} height="52px" px={2} display="flex" alignItems={"center"}>
         Current subscription plan
       </Typography>
-      <Typography variant="body1" fontWeight={400} height="26px" px={2} pb={user?.activeSubscription.plan !== "free" ? 0 : 7}>
-        {`${capitalizeFirstLetter(user?.activeSubscription.plan)} Plan`}
-      </Typography>
-      {user?.activeSubscription.plan !== "free" ? (
+      {user?.activeSubscription.plan === undefined ? (
+        <Typography variant="body1" fontWeight={400} height="26px" px={2} pb={7}>
+          No active plans
+        </Typography>
+      ) : (
+        <Typography variant="body1" fontWeight={400} height="26px" px={2} pb={user?.activeSubscription.plan !== "free" ? 0 : 7}>
+          {`${user?.activeSubscription.plan} Plan`}
+        </Typography>
+      )}
+      {user?.activeSubscription.plan !== "free" && user?.activeSubscription.plan !== undefined ? (
         <Typography variant="body1" fontWeight={400} height="26px" px={2} pb={7}>
           {`Valid until: ${user?.activeSubscription.endDate}`}
         </Typography>
       ) : null}
+
       <Link
         component={"a"}
         onClick={(e) => {

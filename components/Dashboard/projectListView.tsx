@@ -1,9 +1,9 @@
-import { CircularProgress, Stack, Typography } from "@mui/material";
+import { CircularProgress, Stack, Typography, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 import React from "react";
 import { RoundedButton } from "../roundedButton";
 import { useRouter } from "next/router";
 import { useProject } from "../../repositories/hooks/useProject";
-import { Type } from "../../types/models";
+import { deleteProject } from "../../repositories/project";
 import { useProjectType } from "../../repositories/hooks/useProjectType";
 
 export const ProjectListView: React.FC = () => {
@@ -11,7 +11,7 @@ export const ProjectListView: React.FC = () => {
   const { projects, loading } = useProject();
   const { loading: typeLoading } = useProjectType();
 
-  if (projects?.length === 0) {
+  if (projects?.length === 0 || projects === undefined || null) {
     return (
       <Stack gap={2}>
         <Stack
@@ -56,7 +56,7 @@ export const ProjectListView: React.FC = () => {
       )}
       <Stack direction="row-reverse">
         <RoundedButton onClick={() => router.push("/project/create")} sx={{ fontSize: "10px" }}>
-          Create new project
+          Buat projek baru
         </RoundedButton>
       </Stack>
     </Stack>
@@ -66,6 +66,26 @@ export const ProjectListView: React.FC = () => {
 const GroupView: React.FC<{ title: string; projectTypeName: string; id: number }> = ({ title, projectTypeName, id }) => {
   const router = useRouter();
   const { loading } = useProjectType();
+  const [open, setOpen] = React.useState(false);
+  const [loadingDelete, setLoadingDelete] = React.useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleDelete = async () => {
+    setLoadingDelete(true);
+    try {
+      await deleteProject(id);
+    } catch (error) {
+      alert(JSON.stringify(error, null, 2));
+    } finally {
+      setLoadingDelete(false);
+    }
+  };
 
   if (loading) {
     return <CircularProgress />;
@@ -94,14 +114,43 @@ const GroupView: React.FC<{ title: string; projectTypeName: string; id: number }
           </Typography>
         </Stack>
         <Typography variant="caption" color="#000" fontWeight={100}>
-          This is supposedly a description but i do not know what to write so i will just type some random things
+          deskripsi projek
         </Typography>
         <Stack direction="row-reverse">
           <RoundedButton onClick={() => router.push(`/project/${id}`)} sx={{ fontSize: "10px" }} variant="contained">
-            Go to this project
+            detail projek
+          </RoundedButton>
+          <RoundedButton onClick={handleClickOpen} sx={{ fontSize: "10px" }}>
+            hapus projek
           </RoundedButton>
         </Stack>
       </Stack>
+      <DeleteDialog open={open} onClose={handleClose} onClickDelete={handleDelete} name={title} loading={loadingDelete} />
     </Stack>
+  );
+};
+
+interface DialogProps {
+  open: boolean;
+  onClose: () => void;
+  onClickDelete: () => Promise<void>;
+  name: string;
+  loading: boolean;
+}
+
+const DeleteDialog: React.FC<DialogProps> = ({ open, onClose, onClickDelete, name, loading }) => {
+  return (
+    <Dialog open={open} onClose={onClose} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
+      <DialogTitle id="alert-dialog-title">{`Hapus Projek ${name}?`}</DialogTitle>
+      <DialogContent>
+        <DialogContentText id="alert-dialog-description">Projek yang sudah dihapus tidak dapat dipulihkan kembali.</DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <RoundedButton onClick={onClose}>Batal</RoundedButton>
+        <RoundedButton onClick={onClickDelete} variant="contained" loading={loading}>
+          Hapus
+        </RoundedButton>
+      </DialogActions>
+    </Dialog>
   );
 };
