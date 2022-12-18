@@ -49,7 +49,7 @@ export const ProjectListView: React.FC = () => {
         projects?.map((item, index) => {
           return (
             <Stack direction="column" key={index} sx={{ p: "0px 48px 0px 48px" }}>
-              <GroupView title={item.name} projectTypeId={item.projectTypeId} id={item.id} />
+              <GroupView title={item.name} projectTypeName={item.projectType.name} id={item.id} />
             </Stack>
           );
         })
@@ -63,10 +63,9 @@ export const ProjectListView: React.FC = () => {
   );
 };
 
-const GroupView: React.FC<{ title: string; projectTypeId: number; id: number }> = ({ title, projectTypeId, id }) => {
+const GroupView: React.FC<{ title: string; projectTypeName: string; id: number }> = ({ title, projectTypeName, id }) => {
   const router = useRouter();
-  const { projectType, loading } = useProjectType();
-  // const type = projectType.filter((item: Type) => item.id === projectTypeId)[0].name;
+  const { loading } = useProjectType();
 
   if (loading) {
     return <CircularProgress />;
@@ -90,9 +89,9 @@ const GroupView: React.FC<{ title: string; projectTypeId: number; id: number }> 
           <Typography variant="h6" fontWeight={500} sx={{ mb: "8px" }}>
             {title}
           </Typography>
-          {/* <Typography variant="body2" color="text.disabled" sx={{ pt: "2px" }}>
-            {type}
-          </Typography> */}
+          <Typography variant="body2" color="text.disabled" sx={{ pt: "2px" }}>
+            {projectTypeName}
+          </Typography>
         </Stack>
         <Typography variant="caption" color="#000" fontWeight={100}>
           This is supposedly a description but i do not know what to write so i will just type some random things

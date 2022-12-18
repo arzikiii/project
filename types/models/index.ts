@@ -16,7 +16,7 @@ export interface UserSubscription {
 export interface Projects {
   id: number;
   name: string;
-  projectTypeId: number;
+  projectType: Type;
 }
 
 export interface ProjectType {
