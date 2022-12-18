@@ -89,10 +89,12 @@ export const AccountMenu: React.FC<AccountMenuProps> = ({ handleClose }) => {
   const handleLogout = async () => {
     try {
       await logOut();
+      return true;
     } catch (e) {
+      alert(JSON.stringify(e, null, 2));
+      return false;
     } finally {
       handleClose();
-      router.push("/");
     }
   };
 
@@ -123,7 +125,16 @@ export const AccountMenu: React.FC<AccountMenuProps> = ({ handleClose }) => {
           </Stack>
         </MenuItem>
       )}
-      <MenuItem sx={{ color: "error.main", "& i": { color: "error.main" } }} onClick={handleLogout}>
+      <MenuItem
+        sx={{ color: "error.main", "& i": { color: "error.main" } }}
+        onClick={async () => {
+          const logout = await handleLogout();
+          if (logout) {
+            localStorage.removeItem("user");
+            router.push("/");
+          }
+        }}
+      >
         <ListItemIcon>
           <i className="bx bx-log-out bx-md" />
         </ListItemIcon>

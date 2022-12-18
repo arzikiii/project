@@ -1,5 +1,5 @@
 export const getToken = () => {
-  let userToken;
+  let userToken = null;
 
   if (typeof window !== "undefined") {
     userToken = localStorage.getItem("user");

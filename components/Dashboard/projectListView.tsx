@@ -11,7 +11,7 @@ export const ProjectListView: React.FC = () => {
   const { projects, loading } = useProject();
   const { loading: typeLoading } = useProjectType();
 
-  if (projects?.length === 0 || projects === undefined || null) {
+  if (projects?.length === 0) {
     return (
       <Stack gap={2}>
         <Stack
@@ -57,16 +57,6 @@ export const ProjectListView: React.FC = () => {
       <Stack direction="row-reverse">
         <RoundedButton onClick={() => router.push("/project/create")} sx={{ fontSize: "10px" }}>
           Create new project
-        </RoundedButton>
-        <RoundedButton
-          onClick={() =>
-            projects?.map((item) => {
-              console.log(item);
-            })
-          }
-          sx={{ fontSize: "10px" }}
-        >
-          check
         </RoundedButton>
       </Stack>
     </Stack>

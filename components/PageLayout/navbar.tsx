@@ -9,7 +9,6 @@ import { useUser } from "../../repositories/hooks/useUser";
 const NavBar: React.FC = () => {
   const router = useRouter();
   const userToken = getToken();
-  const { user } = useUser();
 
   const loginButton = () => {
     return (
@@ -155,7 +154,7 @@ const NavBar: React.FC = () => {
             >
               RefnWrite
             </RoundedButton>
-            {user !== null ? (
+            {userToken !== null ? (
               <Stack direction="row">
                 {dashboardButton()}
                 {projectButton()}
@@ -164,7 +163,7 @@ const NavBar: React.FC = () => {
             ) : (
               <Stack direction="row">{subsButton()}</Stack>
             )}
-            {user !== null ? (
+            {userToken !== null ? (
               <Stack direction="row">
                 <AvatarButton variant="avatar" />
               </Stack>

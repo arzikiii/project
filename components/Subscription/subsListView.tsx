@@ -2,6 +2,8 @@ import { Chip, CircularProgress, Divider, Stack, Typography } from "@mui/materia
 import React from "react";
 import { RoundedButton } from "../roundedButton";
 import { capitalizeFirstLetter } from "../../utils/helper";
+import { getToken } from "../../repositories/hooks/useToken";
+import { useAvailablePlans } from "../../repositories/hooks/useAvailablePlans";
 
 const sublist = [
   { subName: "free", price: 0 },
@@ -10,7 +12,8 @@ const sublist = [
 ];
 
 export const SubsListView: React.FC = () => {
-  const loading = false;
+  const { plans, loading } = useAvailablePlans();
+
   return (
     <Stack gap={2}>
       {loading ? (
@@ -18,10 +21,10 @@ export const SubsListView: React.FC = () => {
           <CircularProgress />
         </Stack>
       ) : (
-        sublist.map(({ subName, price }, index) => {
+        plans?.map(({ name, pricing }, index) => {
           return (
             <Stack direction="column" key={index} sx={{ p: "0px 48px 0px 48px" }}>
-              <GroupView name={subName} price={price} />
+              <GroupView name={name} price={pricing} />
               {sublist.length - 1 !== index && <Divider />}
             </Stack>
           );
@@ -32,6 +35,7 @@ export const SubsListView: React.FC = () => {
 };
 
 const GroupView: React.FC<{ name: string; price: number }> = ({ name, price }) => {
+  const userToken = getToken();
   return (
     <Stack mb={3} gap={2}>
       <Typography variant="h6" fontWeight={500} color="#2623df">
@@ -62,13 +66,15 @@ const GroupView: React.FC<{ name: string; price: number }> = ({ name, price }) =
             width: "80px",
           }}
         />
-        {/* <Typography variant="body2" sx={{ p: "6px 12px" }}>
-          Login to Buy
-        </Typography> */}
-        <RoundedButton onClick={() => console.log("click")} sx={{ fontSize: "10px" }}>
-          {" "}
-          Buy Plan{" "}
-        </RoundedButton>
+        {userToken !== null ? (
+          <RoundedButton onClick={() => console.log("click")} sx={{ fontSize: "10px" }}>
+            Buy Plan
+          </RoundedButton>
+        ) : (
+          <Typography variant="body2" sx={{ p: "6px 12px" }}>
+            Login to Buy
+          </Typography>
+        )}
       </Stack>
     </Stack>
   );

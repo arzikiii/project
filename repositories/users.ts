@@ -54,7 +54,7 @@ export const fetchUser = async (): Promise<User> => {
 
 export const logOut = async () => {
   try {
-    await ecomApi.get("/users/logout");
+    await ecomApi.post("/users/logout");
   } catch (error: any | AxiosError) {
     if (axios.isAxiosError(error)) {
       throw error.response;
