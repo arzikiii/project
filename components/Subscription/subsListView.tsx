@@ -68,7 +68,7 @@ const GroupView: React.FC<{ name: string; price: number }> = ({ name, price }) =
         />
         {userToken !== null ? (
           <RoundedButton onClick={() => console.log("click")} sx={{ fontSize: "10px" }}>
-            Buy Plan
+            Beli
           </RoundedButton>
         ) : (
           <Typography variant="body2" sx={{ p: "6px 12px" }}>

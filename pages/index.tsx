@@ -1,12 +1,3 @@
-import Typography from "@mui/material/Typography";
-import Layout from "../components/PageLayout/Layout";
+import { LandingPage } from "../components/landing/landingPage";
 
-const Home: React.FC = () => {
-  return (
-    <Layout>
-      <Typography>Ini adalah home page tapi saya bingung mau isi apa hehe</Typography>
-    </Layout>
-  );
-};
-
-export default Home;
+export default LandingPage;

@@ -11,7 +11,7 @@ export const DashboardPage: React.FC = () => {
   const { loading } = useUser();
   const { loading: projectLoading } = useProject();
 
-  if (loading || projectLoading) {
+  if ((loading || projectLoading) && typeof window === "undefined") {
     return <CircularProgress />;
   }
 

@@ -59,7 +59,7 @@ export const SideBox: React.FC = () => {
             px: 2,
           }}
         >
-          Buy new Subscription
+          Beli Subscription Plan
         </Stack>
       </Link>
     </Stack>
