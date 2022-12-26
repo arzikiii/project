@@ -13,6 +13,11 @@ const validationSchema = Yup.object({
   projectTypeId: Yup.string().required("Project Type harus diisi"),
 });
 
+const topicList = [
+  { id: 1, name: "machine learning" },
+  { id: 2, name: "data mining" },
+];
+
 export const CreateProject: React.FC = () => {
   const router = useRouter();
   const { projectType, loading } = useProjectType();
@@ -53,6 +58,7 @@ export const CreateProject: React.FC = () => {
         initialValues={{
           name: "",
           projectTypeId: "",
+          topic: "",
         }}
         onSubmit={async (values, { setSubmitting }) => {
           setSubmitting(true);
@@ -109,6 +115,22 @@ export const CreateProject: React.FC = () => {
               </TextField>
               <Stack direction="row" justifyContent="space-between" mx="16px">
                 <FormHelperText error>{errors.projectTypeId}</FormHelperText>
+              </Stack>
+
+              <Typography id="Type" variant="subtitle1" sx={{ mt: "8px" }}>
+                Project Topic
+              </Typography>
+              <TextField select label="Topic" name="topic" placeholder="Topic" onChange={(event) => setFieldValue("topic", event.target.value)} defaultValue={values.topic} error={Boolean(errors.topic)}>
+                {topicList.map((type: Type) => {
+                  return (
+                    <MenuItem key={type.id} value={type.id}>
+                      {type.name}
+                    </MenuItem>
+                  );
+                })}
+              </TextField>
+              <Stack direction="row" justifyContent="space-between" mx="16px">
+                <FormHelperText error>{errors.topic}</FormHelperText>
               </Stack>
 
               <Stack direction="row-reverse" spacing={1} mt="36px">
