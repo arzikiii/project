@@ -1,3 +1,3 @@
-import { editProjectContentPage } from "../../../../components/Project/editProjectContent";
+import { ProjectContentPage } from "../../../../components/Project/projectContentPage";
 
-export default editProjectContentPage;
+export default ProjectContentPage;
