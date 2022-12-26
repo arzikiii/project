@@ -65,6 +65,7 @@ export const ProjectListView: React.FC = () => {
 
 const GroupView: React.FC<{ title: string; projectTypeName: string; id: number }> = ({ title, projectTypeName, id }) => {
   const router = useRouter();
+  const { mutate } = useProject();
   const { loading } = useProjectType();
   const [open, setOpen] = React.useState(false);
   const [loadingDelete, setLoadingDelete] = React.useState(false);
@@ -80,10 +81,12 @@ const GroupView: React.FC<{ title: string; projectTypeName: string; id: number }
     setLoadingDelete(true);
     try {
       await deleteProject(id);
+      mutate();
     } catch (error) {
       alert(JSON.stringify(error, null, 2));
     } finally {
       setLoadingDelete(false);
+      window.location.reload();
     }
   };
 

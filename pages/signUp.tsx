@@ -70,7 +70,7 @@ const Login: NextPage = () => {
           try {
             await signUp({ ...data, email: data.email.toLowerCase() });
             setSbOpen(true);
-            router.push("/dashboard");
+            router.push("/login");
           } catch (error: any) {
             setAlertMessage("Sign up gagal");
             setSbAlertOpen(true);

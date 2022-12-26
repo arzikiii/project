@@ -12,7 +12,6 @@ interface signUpPayload {
 export const signUp = async (data: signUpPayload): Promise<User> => {
   try {
     const res = await loginApi.post("/users/signup", data);
-    localStorage.setItem("user", res.data);
     return res.data;
   } catch (error: any | AxiosError) {
     if (axios.isAxiosError(error)) {
