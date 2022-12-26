@@ -26,9 +26,9 @@ export const fetchProjectType = async (): Promise<any> => {
   }
 };
 
-export const fetchProjectById = async (id: string): Promise<Projects> => {
+export const fetchProjectById = async (id: number): Promise<Projects> => {
   try {
-    const res = await ecomApi.get<Projects>(`books/${id}`);
+    const res = await ecomApi.get<Projects>(`/projects/${id}`);
     return res.data;
   } catch (error: any | AxiosError) {
     if (axios.isAxiosError(error)) {
