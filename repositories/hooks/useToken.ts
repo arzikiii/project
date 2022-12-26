@@ -3,9 +3,11 @@ export const getToken = () => {
 
   if (typeof window !== "undefined") {
     userToken = localStorage.getItem("user");
-    if (userToken !== null) {
-      return userToken;
-    }
   }
+
+  if (userToken !== null) {
+    return userToken;
+  }
+
   return null;
 };

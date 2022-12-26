@@ -25,7 +25,7 @@ export const SubsListView: React.FC = () => {
           return (
             <Stack direction="column" key={index} sx={{ p: "0px 48px 0px 48px" }}>
               <GroupView name={name} price={pricing} />
-              {sublist.length - 1 !== index && <Divider />}
+              {plans.length - 1 !== index && <Divider />}
             </Stack>
           );
         })
@@ -39,7 +39,7 @@ const GroupView: React.FC<{ name: string; price: number }> = ({ name, price }) =
   return (
     <Stack mb={3} gap={2}>
       <Typography variant="h6" fontWeight={500} color="#2623df">
-        {capitalizeFirstLetter(name)} Plan
+        {`${capitalizeFirstLetter(name)} Plan`}
       </Typography>
       <Typography variant="caption" color="#000" fontWeight={100}>
         deskripsi subscription plan
