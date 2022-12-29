@@ -2,30 +2,17 @@ import React from "react";
 import { CircularProgress, Divider, Stack, Typography } from "@mui/material";
 import { RoundedButton } from "../roundedButton";
 import { useRouter } from "next/router";
+import { projectParts } from "../../types/models";
 
-//TODO add props
+interface Props {
+  projectParts: projectParts[];
+  loading: boolean;
+}
 
-const struktur = [
-  {
-    name: "Bab 1",
-    content:
-      "lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet",
-  },
-  {
-    name: "Bab 2",
-    content:
-      "lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet",
-  },
-  {
-    name: "Bab 3",
-    content:
-      "lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet",
-  },
-];
-
-export const ProjectStructureDetail: React.FC = () => {
-  const loading = false;
+export const ProjectStructureDetail: React.FC<Props> = ({ projectParts, loading }) => {
   const router = useRouter();
+  const { projectId } = router.query;
+  const idProject = Number(projectId);
   return (
     <Stack>
       <Typography variant="h5" fontWeight={600} height="52px" px={2} display="flex" alignItems={"center"} color="#2623df">
@@ -47,11 +34,11 @@ export const ProjectStructureDetail: React.FC = () => {
             <CircularProgress />
           </Stack>
         ) : (
-          struktur?.map(({ name, content }, index) => {
+          projectParts?.map(({ name, contentExcerpt, id }, index) => {
             return (
               <Stack direction="column" key={index}>
-                <GroupView name={name} content={content} />
-                {struktur.length - 1 !== index && <Divider />}
+                <GroupView name={name} content={contentExcerpt} id={id} projectId={idProject} />
+                {projectParts.length - 1 !== index && <Divider />}
               </Stack>
             );
           })
@@ -66,7 +53,7 @@ export const ProjectStructureDetail: React.FC = () => {
   );
 };
 
-const GroupView: React.FC<{ name: string; content: string }> = ({ name, content }) => {
+const GroupView: React.FC<{ name: string; content: string; id: number; projectId: number }> = ({ name, content, id, projectId }) => {
   const router = useRouter();
   return (
     <Stack mb={3} gap={2}>
@@ -78,10 +65,10 @@ const GroupView: React.FC<{ name: string; content: string }> = ({ name, content 
       </Typography>
 
       <Stack direction="row-reverse" columnGap={1} rowGap={1.5}>
-        <RoundedButton onClick={() => router.push(`/project/1/1/edit`)} sx={{ fontSize: "10px" }}>
+        <RoundedButton onClick={() => router.push(`/project/${projectId}/${id}/edit`)} sx={{ fontSize: "10px" }}>
           Edit
         </RoundedButton>
-        <RoundedButton onClick={() => router.push(`/project/1/1`)} sx={{ fontSize: "10px" }} variant="contained">
+        <RoundedButton onClick={() => router.push(`/project/${projectId}/${id}`)} sx={{ fontSize: "10px" }} variant="contained">
           Lihat
         </RoundedButton>
       </Stack>

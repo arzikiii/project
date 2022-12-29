@@ -17,6 +17,7 @@ export interface Projects {
   id: number;
   name: string;
   projectType: Type;
+  projectParts: projectParts[];
 }
 
 export interface ProjectType {
@@ -26,4 +27,10 @@ export interface ProjectType {
 export interface Type {
   id: number;
   name: string;
+}
+
+export interface projectParts {
+  id: number;
+  name: string;
+  contentExcerpt: string;
 }
