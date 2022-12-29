@@ -1,5 +1,5 @@
 import axios, { AxiosError } from "axios";
-import { Projects, ProjectType, Type } from "../types/models";
+import { projectContent, Projects, ProjectType, Type } from "../types/models";
 import { ecomApi } from "../utils/apiClient";
 
 export const fetchProject = async (): Promise<Projects[]> => {
@@ -56,6 +56,18 @@ interface projectPayload {
 export const createProject = async (data: projectPayload): Promise<Projects> => {
   try {
     const res = await ecomApi.post("/projects", data);
+    return res.data;
+  } catch (error: any | AxiosError) {
+    if (axios.isAxiosError(error)) {
+      throw error.response;
+    }
+    throw error;
+  }
+};
+
+export const fetchProjectPartById = async (projectId: number, projectPartId: number): Promise<projectContent> => {
+  try {
+    const res = await ecomApi.get<projectContent>(`/projects/${projectId}/parts/${projectPartId}/content`);
     return res.data;
   } catch (error: any | AxiosError) {
     if (axios.isAxiosError(error)) {

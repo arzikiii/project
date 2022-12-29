@@ -65,11 +65,11 @@ const GroupView: React.FC<{ name: string; content: string; id: number; projectId
       </Typography>
 
       <Stack direction="row-reverse" columnGap={1} rowGap={1.5}>
-        <RoundedButton onClick={() => router.push(`/project/${projectId}/${id}/edit`)} sx={{ fontSize: "10px" }}>
-          Edit
-        </RoundedButton>
         <RoundedButton onClick={() => router.push(`/project/${projectId}/${id}`)} sx={{ fontSize: "10px" }} variant="contained">
           Lihat
+        </RoundedButton>
+        <RoundedButton onClick={() => router.push(`/project/${projectId}/${id}/edit`)} sx={{ fontSize: "10px" }}>
+          Edit
         </RoundedButton>
       </Stack>
     </Stack>

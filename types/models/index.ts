@@ -34,3 +34,8 @@ export interface projectParts {
   name: string;
   contentExcerpt: string;
 }
+
+export interface projectContent {
+  id: number;
+  content: string;
+}

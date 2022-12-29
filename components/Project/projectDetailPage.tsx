@@ -21,7 +21,7 @@ export const ProjectDetailPage: React.FC = () => {
   return (
     <Layout>
       <Box>
-        <PageHeader title="Project title" />
+        <PageHeader title={project.name} />
         <Grid container spacing={3} pt={3}>
           <Grid item xs={3}>
             <SideDetail projectType={project.projectType.name} />
@@ -30,7 +30,6 @@ export const ProjectDetailPage: React.FC = () => {
             <ProjectStructureDetail projectParts={project.projectParts} loading={loading} />
           </Grid>
         </Grid>
-        <RoundedButton onClick={() => console.log(project.projectParts)}>click</RoundedButton>
       </Box>
     </Layout>
   );
