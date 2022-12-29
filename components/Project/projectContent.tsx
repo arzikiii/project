@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { useProjectPartContent } from "../../repositories/hooks/useProjectPartContent";
 import { useProjectDetail } from "../../repositories/hooks/useProjectDetail";
 import { projectContent, projectParts } from "../../types/models";
+import { HtmlBox } from "../htmlBox";
 
 interface Props {
   projectContent: projectContent;
@@ -30,9 +31,7 @@ export const ProjectContent: React.FC<Props> = ({ projectContent, projectPart })
       <Typography variant="h4" fontWeight={500} color="#2623df">
         {projectPart!.name}
       </Typography>
-      <Typography variant="body1" color="#000" fontWeight={100}>
-        {projectContent.content}
-      </Typography>
+      <HtmlBox htmlContent={projectContent.content !== "" ? projectContent.content : "-"} variant="body1" />
 
       <Stack direction="row-reverse" columnGap={1} rowGap={1.5}>
         <RoundedButton onClick={() => router.push(`/project/${idProject}/${idPart}/edit`)} sx={{ fontSize: "10px" }} variant="contained">

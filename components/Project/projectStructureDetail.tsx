@@ -3,6 +3,7 @@ import { CircularProgress, Divider, Stack, Typography } from "@mui/material";
 import { RoundedButton } from "../roundedButton";
 import { useRouter } from "next/router";
 import { projectParts } from "../../types/models";
+import { HtmlBox } from "../htmlBox";
 
 interface Props {
   projectParts: projectParts[];
@@ -60,9 +61,7 @@ const GroupView: React.FC<{ name: string; content: string; id: number; projectId
       <Typography variant="h5" fontWeight={500} color="#2623df">
         {name}
       </Typography>
-      <Typography variant="body1" color="#000" fontWeight={100} noWrap>
-        {content}
-      </Typography>
+      <HtmlBox htmlContent={content !== "" ? content : "-"} variant="body1" />
 
       <Stack direction="row-reverse" columnGap={1} rowGap={1.5}>
         <RoundedButton onClick={() => router.push(`/project/${projectId}/${id}`)} sx={{ fontSize: "10px" }} variant="contained">

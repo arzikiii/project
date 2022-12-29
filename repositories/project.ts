@@ -76,3 +76,19 @@ export const fetchProjectPartById = async (projectId: number, projectPartId: num
     throw error;
   }
 };
+
+interface contentPayload {
+  content: string;
+}
+
+export const updateContent = async (projectId: number, projectPartId: number, data: contentPayload): Promise<projectContent> => {
+  try {
+    const res = await ecomApi.put<projectContent>(`/projects/${projectId}/parts/${projectPartId}/content`, data);
+    return res.data;
+  } catch (error: any | AxiosError) {
+    if (axios.isAxiosError(error)) {
+      throw error.response;
+    }
+    throw error;
+  }
+};
