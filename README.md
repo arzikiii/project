@@ -7,20 +7,35 @@
 
 ## Instalasi
 
-1. install dependencies
+1. hidupkan server apache dan mySql pada aplikasi xampp
+2. install dependencies
 
    ```bash
    npm i
    ```
 
-2. ikuti instalasi di [Repo API branch dev](https://github.com/snaztoz/e-commerce-api/tree/dev)
-3. Jalankan project
+3. ikuti instalasi di [Repo API branch dev](https://github.com/snaztoz/e-commerce-api/tree/dev)
+4. sebelum menjalankan project apabila terdapat update baru pada [Repo API branch dev](https://github.com/snaztoz/e-commerce-api/tree/dev), jalankan
+
+   ```bash
+   node ace migration:reset
+
+   node ace migration:run
+
+   node ace db:seed
+
+   yarn dev
+   ```
+
+   pada [Repo API branch dev](https://github.com/snaztoz/e-commerce-api/tree/dev)
+
+5. Jalankan project
    ```bash
    npm run dev
    # or
    yarn dev
    ```
-4. untuk login gunakan
+6. untuk login gunakan
    ```bash
    username: alice
    password: password
