@@ -11,7 +11,6 @@
 
    ```bash
    npm i
-
    ```
 
 2. ikuti instalasi di [Repo API branch dev](https://github.com/snaztoz/e-commerce-api/tree/dev)
@@ -35,8 +34,7 @@
 4. `/dashboard` -> halaman dashboard user
 5. `/project` -> halaman project user
 6. `/project/create` -> halaman create project
-
-## Halaman on progress
-
-1. `/` -> halaman home / landing page
-2. `/project/${id}` -> halaman detail project
+7. `/` -> halaman home / landing page
+8. `/project/${id}` -> halaman detail project
+9. `/project/${id}/${partId}` -> halaman konten berdasarkan project part
+10. `/project/${id}/${partId}` -> halaman edit konten
