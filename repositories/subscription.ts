@@ -12,3 +12,19 @@ export const fetchAvailablePlans = async (): Promise<any[]> => {
     throw error;
   }
 };
+
+interface orderPayload {
+  planId: Number;
+}
+
+export const makeOrder = async (data: orderPayload): Promise<any> => {
+  try {
+    const res = await ecomApi.post("/subscriptions/orders", data);
+    return res.data;
+  } catch (error: any | AxiosError) {
+    if (axios.isAxiosError(error)) {
+      throw error.response;
+    }
+    throw error;
+  }
+};
