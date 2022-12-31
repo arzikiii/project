@@ -2,7 +2,7 @@ import { Link, Stack, Typography, CircularProgress } from "@mui/material";
 import { useRouter } from "next/router";
 import React from "react";
 import { useUser } from "../../repositories/hooks/useUser";
-import { capitalizeFirstLetter } from "../../utils/helper";
+import { capitalizeFirstLetter, prettyDate } from "../../utils/helper";
 
 export const SideBox: React.FC = () => {
   const router = useRouter();
@@ -23,12 +23,12 @@ export const SideBox: React.FC = () => {
         </Typography>
       ) : (
         <Typography variant="body1" fontWeight={400} height="26px" px={2} pb={user?.activeSubscription.plan !== "free" ? 0 : 7}>
-          {`${user?.activeSubscription.plan} Plan`}
+          {`${capitalizeFirstLetter(user?.activeSubscription.plan)} Plan`}
         </Typography>
       )}
       {user?.activeSubscription.plan !== "free" && user?.activeSubscription.plan !== undefined ? (
         <Typography variant="body1" fontWeight={400} height="26px" px={2} pb={7}>
-          {`Valid until: ${user?.activeSubscription.endDate}`}
+          {`Valid until: ${prettyDate(user?.activeSubscription.endDate)}`}
         </Typography>
       ) : null}
 
